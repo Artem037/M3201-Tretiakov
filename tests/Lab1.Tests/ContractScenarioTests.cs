@@ -3,9 +3,9 @@
 namespace Itmo.ObjectOrientedProgramming.Lab1.Tests;
 
 // Тестовые сценарии из задания (раздел «Тестовые сценарии»).
-// Значения по умолчанию: флот – один Venture, пояс «Пояс A» (4 а.е., Veldspar – 1.0),
-// цикл добычи – 1 ч, станция – Imperial Refinery (налог 0%),
-// прайс-лист – Tritanium 4, Pyerite 10, Mexallon 70, Isogen 150 ТГК.
+// Значения по умолчанию: флот – один Venture, стратегия «Общий трюм»;
+// пояс «Пояс A» – 4 а.е., Veldspar; налог 0;
+// прайс-лист – Tritanium 4, Pyerite 10, Mexallon 70, Isogen 150.
 public class ContractScenarioTests
 {
     /*
@@ -22,8 +22,8 @@ public class ContractScenarioTests
     }
     */
 
-    [Fact(DisplayName = "Сценарий 1. Успешное выполнение контракта")]
-    public void Contract_WithSingleVenture_IsCompleted()
+    [Fact(DisplayName = "Сценарий 1. Контракт на срок")]
+    public void TimeContract_WithSingleVenture_IsCompleted()
     {
         // Arrange: контракт на 6 ч
         // var contract = new Contract(...);
@@ -31,34 +31,65 @@ public class ContractScenarioTests
         // Act
         // var result = calculator.Calculate(contract, ...);
 
-        // Assert: выполнен; 1 рейс, 4 цикла, время работы 6 ч;
-        // добыто 400 м³, потерь нет; Tritanium – 8000;
-        // выручка 32 000, содержание 6000, прибыль 26 000
+        // Assert: выполнен; 1 рейс, время работы 6 ч, добыто 400 м³;
+        // Tritanium – 8000; выручка 32 000, аренда 6000, прибыль 26 000
         // Assert.Equal(result.Status, ContractStatusEnum.Completed);
         Assert.Fail("Сценарий не реализован");
     }
 
     [Fact(DisplayName = "Сценарий 2. Пустой флот")]
-    public void Contract_WithEmptyFleet_CannotBeCreated()
+    public void Fleet_WithoutShips_CannotBeCreated()
     {
-        // Arrange: флот без кораблей
+        // Arrange + Act: создание флота без кораблей
 
-        // Act
-
-        // Assert: контракт не может быть создан
+        // Assert: исключение
         Assert.Fail("Сценарий не реализован");
     }
 
-    [Fact(DisplayName = "Сценарий 3. Групповой вылет разных кораблей")]
-    public void Contract_WithMixedFleet_FliesAtSlowestShipSpeed()
+    [Fact(DisplayName = "Сценарий 3. Групповой вылет")]
+    public void TimeContract_WithVentureAndEpithal_UsesSharedHold()
     {
-        // Arrange: флот – Venture (трюм 100 м³) и Epithal; контракт на 6 ч
+        // Arrange: Venture (трюм 100 м³) и Epithal, «Общий трюм»; контракт на 6 ч
 
         // Act
 
-        // Assert: выполнен; полёт 2 ч, 1 рейс, 2 цикла, время работы 6 ч;
-        // добыто 220 м³ (Venture – 200 м³, из них 100 м³ в трюме Epithal; Epithal – 20 м³);
-        // Tritanium – 4400; выручка 17 600, содержание 9000, прибыль 8600
+        // Assert: выполнен; полёт 2 ч, 2 цикла, время работы 6 ч;
+        // добыто 200 м³ (100 м³ в трюме Venture, 100 м³ в трюме Epithal);
+        // Tritanium – 4000; выручка 16 000, аренда 9000, прибыль 7000
+        Assert.Fail("Сценарий не реализован");
+    }
+
+    [Fact(DisplayName = "Сценарий 4. Контракт на объём")]
+    public void VolumeContract_WithSingleVenture_IsCompleted()
+    {
+        // Arrange: контракт на 1000 м³
+
+        // Act
+
+        // Assert: выполнен; 3 рейса (400, 400, 200 м³), время работы 16 ч;
+        // Tritanium – 20 000; выручка 80 000, аренда 16 000, прибыль 64 000
+        Assert.Fail("Сценарий не реализован");
+    }
+
+    [Fact(DisplayName = "Сценарий 5. Отклонение по сроку")]
+    public void TimeContract_TooShort_IsRejected()
+    {
+        // Arrange: контракт на 2 ч
+
+        // Act
+
+        // Assert: отклонён – срока не хватает на один рейс
+        Assert.Fail("Сценарий не реализован");
+    }
+
+    [Fact(DisplayName = "Сценарий 6. Отклонение по прайс-листу")]
+    public void Contract_WithIncompletePriceList_IsRejected()
+    {
+        // Arrange: пояс с Scordite, в прайс-листе нет цены Pyerite; контракт на 6 ч
+
+        // Act
+
+        // Assert: отклонён – в прайс-листе нет цены минерала из выхода руды
         Assert.Fail("Сценарий не реализован");
     }
 }
